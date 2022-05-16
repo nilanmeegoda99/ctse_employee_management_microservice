@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employer-deployment
+  labels:
+    app: ctse-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ctse-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5     
+  template:
+    metadata:
+      labels:
+        app: ctse-app
+    spec:
+      containers:
+      - name: employer-management-ms
+        image: nilandmeegoda99/employer_management_ms:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4001
