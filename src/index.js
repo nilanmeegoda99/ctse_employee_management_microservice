@@ -22,6 +22,9 @@ const server = async () => {
         console.log(err)
     }
    
+    app.get('/', (req, res) => {
+        res.send('Api is working')
+      });
 
     app.listen({port: 4001}, ()=> {
         console.log('server running')
