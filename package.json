@@ -3,23 +3,19 @@
   "version": "1.0.0",
   "description": "uni assignment 03",
   "main": "index.js",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "nodemon src/index.js"
   },
   "author": "nilanmeegoda",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.17.10",
-    "@babel/node": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "nodemon": "^2.0.16"
-  },
   "dependencies": {
-    "apollo-server-express": "^3.7.0",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "graphql": "^16.5.0",
-    "mongoose": "^6.3.3"
+    "mongoose": "^6.3.3",
+    "nodemon": "^2.0.16"
   }
 }
