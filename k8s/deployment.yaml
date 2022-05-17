@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ctse-app
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: ctse-app
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: employer-management-ms
-        image: nilandmeegoda99/employer_management_ms:v1
+        image: nilandmeegoda99/employer_management_ms:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 4001
