@@ -1,34 +1,32 @@
-import express from "express";
-import mongoose from "mongoose";
-import {ApolloServer, gql} from "apollo-server-express"
-import {resolvers} from "./resolver"
-import {typeDefs} from "./typeDefs"
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const server = async () => {
-    const app = express();
-    const server = new ApolloServer({
-        typeDefs,
-        resolvers
-    })
+const employerRoutes = require('./routes/EmployerRoutes');
 
-    await server.start();
+const app = express();
 
-    server.applyMiddleware({app});
+app.use(cors());
+app.use(bodyParser.json({ limit: "30mb" }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    try{
-        await mongoose.connect("mongodb+srv://nilanmeegoda:admin123@employeecluster.6unxr.mongodb.net/employee_db?retryWrites=true&w=majority", {useNewUrlParser: true})
-        console.log('db connected')
-    }catch(err){
-        console.log(err)
-    }
-   
-    app.get('/', (req, res) => {
-        res.send('Api is working')
-      });
+const PORT = process.env.PORT || 4001;
+const URI = "mongodb+srv://nilanmeegoda:admin123@employeecluster.6unxr.mongodb.net/employee_db?retryWrites=true&w=majority"
 
-    app.listen({port: 4001}, ()=> {
-        console.log('server running')
-    })
-}
+mongoose
+  .connect(URI)
+  .then(() => {
+    console.log("DB connection Successful");
+  })
+  .catch((err) => {
+    console.log("DB connection Failed - " + err);
+  });
 
-server();
+app.get("/", (req,res) => {res.send("API is working")})
+app.use("/api/employers",employerRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
